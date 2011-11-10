@@ -1,0 +1,12 @@
+smbackup.sh
+
+Script de backups para recursos compartidos Windows/SAMBA
+
+Modo de uso:
+./smbackup.sh <configfile>
+
+Formato del archivo de configuracion
+
+#RecursoCompartido      #Usuario      #Password
+//PC/recurso
+//PC2/recurso           pepe          p3p3
