@@ -6,6 +6,7 @@
 #
 
 BACKUPDIR="/var/backups/pcs"
+EXCLUDE="*.avi *.mpg *.mpeg *.mov *.mkv *.mp4 *.wma *.wav *.mp3"
 SMBCLIENT=$(which smbclient)
 
 if [ $1 ]; then
@@ -34,9 +35,9 @@ if [ $1 ]; then
 		echo "Haciendo el backup de $BACKUP_HOST - $BACKUP_SRC..."
 
 		if [ $2 ]; then
-			$SMBCLIENT -U $2 $1 $3 -c "tarmode full" -Tcq - | gzip > $BACKUPDIR/$FECHA/$BACKUP_HOST/$BACKUP_SRC.tar.gz
+			$SMBCLIENT -U $2 $1 $3 -c "tarmode full" -TXrcq - $EXCLUDE | gzip > $BACKUPDIR/$FECHA/$BACKUP_HOST/$BACKUP_SRC.tar.gz
 		else
-			$SMBCLIENT $1 -N -c "tarmode full" -Tcq - | gzip > $BACKUPDIR/$FECHA/$BACKUP_HOST/$BACKUP_SRC.tar.gz
+			$SMBCLIENT $1 -N -c "tarmode full" -TXrcq - $EXCLUDE | gzip > $BACKUPDIR/$FECHA/$BACKUP_HOST/$BACKUP_SRC.tar.gz
 		fi
 	done < $CONFIG_FILE
 else
